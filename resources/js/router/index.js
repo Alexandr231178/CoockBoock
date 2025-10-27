@@ -6,6 +6,10 @@ import CreateProduct from '../components/CreateProduct.vue';
 const routes = [
     {
         path: '/',
+        component: Auth,
+    },
+    {
+        path: '/products',
         component: ProductList,
     },
     {
