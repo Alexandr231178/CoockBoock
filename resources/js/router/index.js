@@ -36,12 +36,12 @@ const router = createRouter({
     routes,
 });
 
-// router.beforeEach((to)=>{
-//     const enterStore = useEnter();
-//     if(!enterStore.getToken && to.name != 'auth') {
-//         return { name: 'auth'};
-//     }
-// });
+router.beforeEach((to)=>{
+    const enterStore = useEnter();
+    if(!enterStore.getToken && to.name !== 'auth') {
+        return { name: 'auth'};
+    }
+});
 
 
 

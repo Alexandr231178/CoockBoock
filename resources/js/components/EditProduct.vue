@@ -32,7 +32,7 @@ export default {
     methods: {
         async updateProduct() {
             await axios.put(`/api/products/${this.product.id}`, this.product);
-            this.$router.push('/');
+            this.$router.push('/products');
         },
     },
 };

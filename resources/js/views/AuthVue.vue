@@ -2,6 +2,7 @@
 import EnterForm from '../components/EnterForm.vue';
 import RegisterForm from '../components/RegisterForm.vue';
 import { ref } from 'vue';
+import router from "../router/index.js";
 
 let authFormName = ref('Зарегистрироваться');
 let authFormName2 = ref('Войти');
@@ -13,7 +14,10 @@ function changeAuthFormName() {
     } else {authFormName.value = 'Зарегистрироваться';
         authFormName2.value = 'Войти'
     }
+}
 
+function goToProducts() {
+    router.push('/products');
 }
 
 </script>
@@ -27,6 +31,10 @@ function changeAuthFormName() {
     </div>
     <div>
         <button @click="changeAuthFormName()">{{ authFormName2 }}</button>
+    </div>
+
+    <div>
+        <button @click="goToProducts()">Go to products</button>
     </div>
 </template>
 
