@@ -2,12 +2,21 @@ import { createRouter, createWebHistory } from 'vue-router';
 import ProductList from '../components/ProductList.vue';
 import EditProduct from '../components/EditProduct.vue';
 import CreateProduct from '../components/CreateProduct.vue';
+import AuthVue from '../views/AuthVue.vue';
+import UsersAll from '../views/UsersAll.vue';
+import {useEnter} from '../stores/enter.js';
+
 
 const routes = [
     {
         path: '/',
-        component: Auth,
+        component: AuthVue, name: 'auth'
     },
+
+    {
+        path: '/users', component: UsersAll, name: 'All',
+    },
+
     {
         path: '/products',
         component: ProductList,
@@ -27,4 +36,13 @@ const router = createRouter({
     routes,
 });
 
-export default router;
+router.beforeEach((to)=>{
+    const enterStore = useEnter();
+    if(!enterStore.getToken && to.name !== 'auth') {
+        return { name: 'auth'};
+    }
+});
+
+
+
+export default router
