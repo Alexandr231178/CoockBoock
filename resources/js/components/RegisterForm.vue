@@ -1,6 +1,7 @@
 <script setup>
 import { useRegistration } from '../stores/registration';
 import { ref } from 'vue';
+import TextButton from "./buttons/TextButton.vue";
 
 const form = ref({});
 const useStore = useRegistration();
@@ -21,7 +22,7 @@ function registerInApp(event) {
         <input v-model="form.name" />
         <input type="email" v-model="form.email" />
         <input type="password" v-model="form.password" />
-        <button type="submit">Зарегистрироваться</button>
+        <TextButton type="submit">Зарегистрироваться</TextButton>
     </form>
     <div>
         {{ useStore.newProfile.name }}
