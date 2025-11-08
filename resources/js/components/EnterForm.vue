@@ -4,6 +4,7 @@ import router from '../router';
 import { useEnter } from '../stores/enter';
 import { ref } from 'vue';
 import TextButton from "./buttons/TextButton.vue";
+import ForAuthForms from "./Inputs/ForAuthForms.vue";
 
 const form = ref({});
 const useStore = useEnter();
@@ -18,6 +19,7 @@ function enterInApp(event) {
 
     useStore.login(form.value.email, form.value.password);
     form.value = {};
+    this.$router.push('/master');
 }
 
 function logout() {
@@ -29,9 +31,14 @@ function logout() {
 </script>
 
 <template>
-    <form @submit="enterInApp" class="enter-form">
-        <input type="email" v-model="form.email" />
-        <input type="password" v-model="form.password" />
+    <form @submit="enterInApp">
+<!--        <input type="email" v-model="form.email" />-->
+<!--        <input type="password" v-model="form.password" />-->
+
+        <ForAuthForms type="email" v-model="form.email"></ForAuthForms>
+        <ForAuthForms type="password" v-model="form.password"></ForAuthForms>
+
+
         <TextButton type="submit">Войти</TextButton>
     </form>
     <div>{{ statusUser }}</div>
@@ -42,12 +49,5 @@ function logout() {
 </template>
 
 <style scoped>
-    .enter-form {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-        background-color: bisque;
-    }
+
 </style>

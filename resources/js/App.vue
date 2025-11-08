@@ -1,21 +1,15 @@
 <template>
-    <div id="app" class="app">
+    <div id="app" class="flex justify-center bg-gray-200 h-screen pt-14">
         <router-view></router-view>
     </div>
 </template>
 
 <script>
+
+
 export default {
     name: 'App',
 };
 </script>
 
-<style scoped>
-    .app {
-        display: flex;
-        justify-content: center;
-        background-color: #a6c4e8;
-        height: 100vh;
-        width: 100vw;
-    }
-</style>
+<style scoped></style>

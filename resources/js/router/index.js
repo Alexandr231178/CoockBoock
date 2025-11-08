@@ -5,12 +5,19 @@ import CreateProduct from '../components/CreateProduct.vue';
 import AuthVue from '../views/AuthVue.vue';
 import UsersAll from '../views/UsersAll.vue';
 import {useEnter} from '../stores/enter.js';
+import MasterPage from "../views/MasterPage.vue";
+
 
 
 const routes = [
     {
         path: '/',
         component: AuthVue, name: 'auth'
+    },
+
+    {
+        path: '/master',
+        component: MasterPage
     },
 
     {

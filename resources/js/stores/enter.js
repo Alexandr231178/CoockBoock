@@ -2,7 +2,7 @@ import axios from "axios";
 import { defineStore } from "pinia";
 import { computed, ref } from 'vue';
 
-const TOKEN_STORE_KEY = 'token-store'; //Создаем ключь для заголовка в котором будет храниться токен
+const TOKEN_STORE_KEY = 'token-store'; //Создаем ключ для заголовка в котором будет храниться токен
 
 export const useEnter = defineStore('enter', ()=>{
     const profile = ref({}) // В нашем случае приходит вся инфа пользователя, а не только токен

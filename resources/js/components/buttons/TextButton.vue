@@ -1,25 +1,9 @@
 <script setup></script>
 
 <template>
-    <button class="button">
+    <button class="bg-amber-500 pb-3.5 pt-1.5 pl-10 pr-10 text-amber-50 text-2xl rounded-full hover:bg-amber-700">
         <slot></slot>
     </button>
 </template>
 
-<style scoped>
-.button {
-    border: none;
-    border-radius: 10px;
-    background: #05f11a;
-    padding: 8px 20px;
-    font-size: 24px;
-    line-height: 36px;
-    font-weight: 400;
-    color: #a6c4e8;
-    cursor: pointer;
-}
-
-.button:hover {
-    background: #0a65e4;
-}
-</style>
+<style scoped></style>
