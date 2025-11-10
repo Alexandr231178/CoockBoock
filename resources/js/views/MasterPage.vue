@@ -1,10 +1,15 @@
 <script setup>
 
 import H1 from "../components/titles/H1.vue";
+import Menu from "../components/menues/Menu.vue";
 </script>
 
 <template>
-    <H1>Это главная страница приложения</H1>
+    <div class="flex flex-col w-full pl-8 pr-8 items-center">
+        <Menu />
+        <RouterView />
+    </div>
+
 </template>
 
 <style scoped>

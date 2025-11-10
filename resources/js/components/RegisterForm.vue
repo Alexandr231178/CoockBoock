@@ -23,17 +23,21 @@ function registerInApp(event) {
 </script>
 
 <template>
-    <div class="flex flex-col pt-14 pb-24 pr-12 pl-12 border rounded-3xl bg-white">
+    <div class="flex flex-col pt-14 pb-14 pr-12 pl-12 border rounded-3xl bg-white">
         <H1 class="mb-7">Форма регистрации</H1>
-        <form @submit="registerInApp">
+        <form @submit="registerInApp" class="mb-2">
             <ForAuthForms class="mb-5" v-model="form.name" placeholder="Введите свое имя"></ForAuthForms>
             <ForAuthForms class="mb-5" type="email" v-model="form.email" placeholder="Введите свой Email"></ForAuthForms>
             <ForAuthForms class="mb-10" type="password" v-model="form.password" placeholder="Введите пароль"></ForAuthForms>
 
             <TextButton type="submit">Зарегистрироваться</TextButton>
         </form>
-        <div v-if="status===1">
-            <h4>Вы успешно зарегистрировались. Для входа в приложение нажмите кнопку "Войти" вверху формы</h4>
+        <div v-if="status===1" class="w-80 items-center">
+            <h4 class="text-emerald-800 font-semibold">
+                Вы успешно зарегистрировались. Для входа в приложение нажмите кнопку
+                <span class="text-amber-600">"Войти"</span>
+                вверху формы
+            </h4>
         </div>
     </div>
 </template>
@@ -41,3 +45,5 @@ function registerInApp(event) {
 <style scoped>
 
 </style>
+
+

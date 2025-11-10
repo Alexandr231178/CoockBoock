@@ -4,6 +4,7 @@ import { computed, ref } from 'vue';
 
 const TOKEN_STORE_KEY = 'token-store'; //Создаем ключ для заголовка в котором будет храниться токен
 
+
 export const useEnter = defineStore('enter', ()=>{
     const profile = ref({}) // В нашем случае приходит вся инфа пользователя, а не только токен
     let token = ref(profile.value.token); //Вычленяем токен
@@ -14,6 +15,7 @@ export const useEnter = defineStore('enter', ()=>{
         token.value = initialValue; //Если уже имеется токен, то при перезагрузке присваиваем старое значение обнулившейся переменной
     }
 
+    let userData = ref({});
     function setToken(newToken) {
         token.value = newToken;
         localStorage.setItem(TOKEN_STORE_KEY, newToken)
@@ -29,17 +31,18 @@ export const useEnter = defineStore('enter', ()=>{
     })
 
     async function login(email, password) {
-        const  {data}  = await axios.post('http://127.0.0.1:8000/api/login', {
+        const {data}  = await axios.post('http://127.0.0.1:8000/api/login', {
             "email": email,
             "password": password,
         });
 
         setToken(data.token);
+        userData.value = data[0];
     }
 
 
 
 
 
-    return { getToken, login, setToken, clearToken }
+    return { getToken, userData, login, setToken, clearToken }
 });

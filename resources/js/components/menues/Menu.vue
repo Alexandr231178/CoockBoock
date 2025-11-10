@@ -6,7 +6,7 @@ import LogInMenu from "./LogInMenu.vue";
 </script>
 
 <template>
-    <div class="flex justify-between">
+    <div class="w-[1440px] flex justify-between pl-4 pr-4">
         <Logo />
         <NavMenu />
         <LogInMenu />
