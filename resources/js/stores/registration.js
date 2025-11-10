@@ -16,7 +16,5 @@ export const useRegistration = defineStore('registration', ()=>{
         newProfile.value = data;
     }
 
-
-
     return { newProfile, register }
 });

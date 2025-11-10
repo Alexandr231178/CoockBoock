@@ -3,9 +3,13 @@ import EnterForm from '../components/EnterForm.vue';
 import RegisterForm from '../components/RegisterForm.vue';
 import { ref } from 'vue';
 import router from "../router/index.js";
+import TextButtonLittle from "../components/buttons/TextButtonLittle.vue";
+import Logo from "../components/menues/Logo.vue";
+
 
 let authFormName = ref('Зарегистрироваться');
 let authFormName2 = ref('Войти');
+
 
 function changeAuthFormName() {
     if (authFormName.value === 'Зарегистрироваться') {
@@ -16,26 +20,39 @@ function changeAuthFormName() {
     }
 }
 
-function goToProducts() {
-    router.push('/products');
-}
+// function goToProducts() {
+//     router.push('/products');
+// }
 
 </script>
 
 <template>
-    <div v-if="authFormName === 'Зарегистрироваться'">
-        <RegisterForm />
-    </div>
-    <div v-if="authFormName === 'Войти'">
-        <EnterForm />
-    </div>
-    <div>
-        <button @click="changeAuthFormName()">{{ authFormName2 }}</button>
+    <div class="auth-vue">
+        <div class="flex justify-between mb-1.5 items-center">
+            <Logo />
+            <div>
+                <TextButtonLittle @click="changeAuthFormName()">{{ authFormName2 }}</TextButtonLittle>
+            </div>
+
+        </div>
+
+        <div v-if="authFormName === 'Зарегистрироваться'">
+            <RegisterForm />
+
+        </div>
+
+        <div v-if="authFormName === 'Войти'">
+            <EnterForm />
+        </div>
+<!--        <div>-->
+<!--            <TextButtonLittle @click="changeAuthFormName()">{{ authFormName2 }}</TextButtonLittle>-->
+<!--        </div>-->
+
+<!--        <div>-->
+<!--            <TextButtonLittle @click="goToProducts()">Go to products</TextButtonLittle>-->
+<!--        </div>-->
     </div>
 
-    <div>
-        <button @click="goToProducts()">Go to products</button>
-    </div>
 </template>
 
 <style scoped>
