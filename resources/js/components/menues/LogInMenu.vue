@@ -11,7 +11,6 @@
         router.push({name: 'auth'})
     }
 
-
 </script>
 
 <template>
