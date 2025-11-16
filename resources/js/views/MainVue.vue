@@ -1,10 +1,11 @@
 <script setup>
+import DishesGroup from "../components/outputs/DishesGroup.vue";
 
-import H1 from "../components/titles/H1.vue";
 </script>
 
 <template>
-    <H1>Здесь будет главная страница</H1>
+    <DishesGroup></DishesGroup>
+
 </template>
 
 <style scoped>
