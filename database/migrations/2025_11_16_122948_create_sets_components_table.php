@@ -13,15 +13,9 @@ return new class extends Migration
     {
         Schema::create('sets_components', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('sets_of_dishes_id')->nullable(); // Внешний ключ на таблицу model1s
-            $table->foreign('sets_of_dishes_id')->references('id')->on('sets_of_dishes')->nullOnDelete()->cascadeOnUpdate();
-
-            $table->unsignedBigInteger('dishes_id')->nullable(); // Внешний ключ на таблицу model2s
-            $table->foreign('dishes_id')->references('id')->on('dishes')->nullOnDelete()->cascadeOnUpdate();
-
+            $table->integer('sets_of_dishes_id');
+            $table->integer('dishes_id');
             $table->integer('quantity');
-
             $table->timestamps();
         });
     }

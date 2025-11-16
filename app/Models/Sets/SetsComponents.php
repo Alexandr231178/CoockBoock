@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class SetsComponents extends Model
 {
-    protected $fillable = ['name', 'sets_of_dishes_id', 'dishes_id', 'quantity'];
+    protected $fillable = ['sets_of_dishes_id', 'dishes_id', 'quantity'];
 
     public function set_dishes(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
