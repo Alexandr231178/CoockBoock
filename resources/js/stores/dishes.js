@@ -1,47 +1,27 @@
-// import axios from "axios";
-// import { defineStore } from "pinia";
-// import { ref } from 'vue';
-//
-//
-// export const useDishesGroup = defineStore('dishesGroup', ()=>{
-//
-//     const dishesGroup = ref({})
-//
-//
-//
-//     async function getDishesGroup() {
-//         const  {data}  = await axios.get('http://127.0.0.1:8000/api/dishesgroup');
-//         dishesGroup.value = data;
-//     }
-//
-//     return { dishesGroup, getDishesGroup }
-// });
 
 
-
-//Вариант нейросети - работает
 import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from 'vue';
 
 // Название ключа для хранения данных в localStorage
-const STORAGE_KEY = 'dishesGroupData';
+const STORAGE_KEY = 'dishes';
 
-export const useDishesGroup = defineStore('dishesGroup', () => {
+export const useDishes = defineStore('dishes', () => {
 
     // Используем реактивную переменную для хранения группы блюд
-    const dishesGroup = ref({});
+    const dishes = ref({});
 
     // Функция для загрузки групп блюд с сервера
-    async function getDishesGroup() {
+    async function getDishes() {
         try {
-            const { data } = await axios.get('http://127.0.0.1:8000/api/dishesgroup');
+            const { data } = await axios.get('http://127.0.0.1:8000/api/dishes');
 
             // Сохраняем загруженные данные в localStorage
             saveToLocalStorage(data);
 
             // Обновляем значение реакционного состояния
-            dishesGroup.value = data;
+            dishes.value = data;
         } catch (err) {
             console.error("Ошибка при загрузке данных:", err.message);
         }
@@ -65,7 +45,7 @@ export const useDishesGroup = defineStore('dishesGroup', () => {
             if (storedData && storedData.length > 0) {
 
                 // Восстанавливаем состояние в стор-хук
-                dishesGroup.value = JSON.parse(storedData);
+                dishes.value = JSON.parse(storedData);
             }
         } catch (err) {
             console.warn("Ошибка при восстановлении данных из localStorage:", err.message);
@@ -75,5 +55,5 @@ export const useDishesGroup = defineStore('dishesGroup', () => {
     // Выполняем восстановление данных сразу при создании стор-хука
     restoreFromLocalStorage();
 
-    return { dishesGroup, getDishesGroup };
+    return { dishes, getDishes };
 })

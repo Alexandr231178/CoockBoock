@@ -3,22 +3,26 @@
 import H2 from "../titles/H2.vue";
 
 import { useDishesGroup } from "../../stores/dishesGroup.js";
-import {onMounted, ref} from "vue";
+import {ref} from "vue";
+import TextButtonAlfa from "../buttons/TextButtonAlfa.vue";
 
 
 const useStore = useDishesGroup();
+
 useStore.getDishesGroup()
+
 const dishesGroupList = ref(useStore.dishesGroup)
 
-console.log(dishesGroupList);
+//console.log(dishesGroupList);
 
 </script>
 
 <template>
     <div class="flex flex-col justify-between p-4 border rounded-2xl bg-white">
         <H2 class="mb-4">Группы блюд</H2>
+        <TextButtonAlfa class="mb-2">Все блюда</TextButtonAlfa>
         <div v-for="i in dishesGroupList" :key="i.id">
-            <H2>{{ i.name }}</H2>
+            <TextButtonAlfa class="mb-2">{{ i.name }}</TextButtonAlfa>
         </div>
     </div>
 </template>

@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { computed, ref } from 'vue';
 
 const TOKEN_STORE_KEY = 'token-store'; //Создаем ключ для заголовка в котором будет храниться токен
+const USER_DATA = 'user-data';
 
 
 export const useEnter = defineStore('enter', ()=>{
@@ -15,20 +16,32 @@ export const useEnter = defineStore('enter', ()=>{
         token.value = initialValue; //Если уже имеется токен, то при перезагрузке присваиваем старое значение обнулившейся переменной
     }
 
-    let userData = ref({});
-    function setToken(newToken) {
-        token.value = newToken;
-        localStorage.setItem(TOKEN_STORE_KEY, newToken)
+    let userData = ref(profile.value.name);
+    const initialValueUserData = localStorage.getItem(USER_DATA);
+    if(initialValueUserData) {
+        userData.value = initialValueUserData;
     }
+
+
+    function setToken(newToken, newUserName) {
+        token.value = newToken;
+        localStorage.setItem(TOKEN_STORE_KEY, newToken);
+        localStorage.setItem(USER_DATA, newUserName);
+
+    }
+
 
     function clearToken() {
         token.value = undefined;
         localStorage.removeItem(TOKEN_STORE_KEY);
+        localStorage.removeItem(USER_DATA);
     }
 
     const getToken = computed(()=> {
         return token.value
     })
+
+
 
     async function login(email, password) {
         const {data}  = await axios.post('http://127.0.0.1:8000/api/login', {
@@ -36,13 +49,15 @@ export const useEnter = defineStore('enter', ()=>{
             "password": password,
         });
 
-        setToken(data.token);
-        userData.value = data[0];
+        setToken(data.token, data[0].name);
+        userData.value = data[0].name;
     }
-
-
-
 
 
     return { getToken, userData, login, setToken, clearToken }
 });
+
+
+
+
+

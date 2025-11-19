@@ -7,6 +7,7 @@ import ForAuthForms from "./Inputs/ForAuthForms.vue";
 import H1 from "./titles/H1.vue";
 import {useRouter} from "vue-router";
 
+
 const form = ref({});
 const useStore = useEnter();
 const router = useRouter()
