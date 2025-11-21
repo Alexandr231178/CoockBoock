@@ -1,23 +1,3 @@
-// import axios from "axios";
-// import { defineStore } from "pinia";
-// import { ref } from 'vue';
-//
-//
-// export const useDishesGroup = defineStore('dishesGroup', ()=>{
-//
-//     const dishesGroup = ref({})
-//
-//
-//
-//     async function getDishesGroup() {
-//         const  {data}  = await axios.get('http://127.0.0.1:8000/api/dishesgroup');
-//         dishesGroup.value = data;
-//     }
-//
-//     return { dishesGroup, getDishesGroup }
-// });
-
-
 
 //Вариант нейросети - работает
 import axios from "axios";
@@ -26,6 +6,8 @@ import { ref } from 'vue';
 
 // Название ключа для хранения данных в localStorage
 const STORAGE_KEY = 'dishesGroupData';
+
+let changedGroup = ref(0)
 
 export const useDishesGroup = defineStore('dishesGroup', () => {
 
@@ -75,5 +57,13 @@ export const useDishesGroup = defineStore('dishesGroup', () => {
     // Выполняем восстановление данных сразу при создании стор-хука
     restoreFromLocalStorage();
 
-    return { dishesGroup, getDishesGroup };
+    //Пробуем положить выбранную группу
+    function setChangedGroup(id) {
+        changedGroup.value = id;
+
+    }
+
+
+
+    return { dishesGroup, getDishesGroup, setChangedGroup, changedGroup};
 })
