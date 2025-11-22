@@ -17,9 +17,17 @@ const dishesList = ref(useStore.dishes);
 
 let newSetDishes = ref([])
 function addNewSetDishes(id) {
-    newSetDishes.value.push(id);
-    console.log(newSetDishes.value);
+    const alreadyExists = newSetDishes.value.some(p => p.id === id);
+    let foundObject = dishesList.value.find(obj => obj.id === id);
+    //console.log(foundObject)
+    if (!alreadyExists) {
+        newSetDishes.value.push(foundObject);
+    }
 }
+
+function removeNewSetDishes(id) {
+    newSetDishes.value = newSetDishes.value.filter(item => item.id !== id);
+} //Закончил здесь
 
 
 </script>
@@ -36,8 +44,12 @@ function addNewSetDishes(id) {
                 </div>
             </div>
             <div>
-                <div v-for="i in newSetDishes" :key="i">
-                    <H2>{{ i }}</H2>
+                <div v-for="i in newSetDishes" :key="i.id">
+                    <div class="flex">
+                        <TextButtonAlfa class="mr-1">{{ i.name }}</TextButtonAlfa>
+                        <Arrow @click="removeNewSetDishes(i.id)"></Arrow>
+                    </div>
+
                 </div>
 
             </div>
