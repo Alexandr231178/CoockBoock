@@ -32,7 +32,6 @@ function setAllGroup() {
         <div v-for="i in dishesGroupList" :key="i.id">
             <TextButtonAlfa class="mb-2" @click="pushIdGroup(i.id)">{{ i.name }}</TextButtonAlfa>
         </div>
-        <H2>{{ useStore.changedGroup }}</H2>
     </div>
 </template>
 
