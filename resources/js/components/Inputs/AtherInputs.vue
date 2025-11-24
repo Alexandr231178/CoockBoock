@@ -4,19 +4,12 @@
         placeholder: String,
         type: String
     })
-
 </script>
 
 <template>
-    <div>
-        <input :type='type' :placeholder='placeholder' v-model="data"
-               class="border rounded-full pt-3.5
-               pb-3.5 text-gray-500">
-    </div>
-
+    <input class="w-full border rounded-full pt-2 pb-2 text-center text-gray-500" :type='type' :placeholder='placeholder' v-model="data">
 </template>
 
-<style scoped>
+<style scoped></style>
 
 
-</style>
