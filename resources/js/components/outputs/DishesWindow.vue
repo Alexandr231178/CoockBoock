@@ -2,6 +2,7 @@
 import { useDishes } from "../../stores/dishes.js";
 import { useDishesGroup } from "../../stores/dishesGroup.js";
 import {computed, ref, watch} from "vue";
+import {toRaw} from "vue";
 import TextButtonLittle from "../buttons/TextButtonLittle.vue";
 import TextButtonAlfa from "../buttons/TextButtonAlfa.vue";
 import Arrow from "../icons/Arrow.vue";
@@ -27,12 +28,16 @@ watch(
 //*******************Проверка кода**************************************************************************************
 const newSetOfDishesName = ref('');
 const newSetOfDishesQuantity = ref(4);
-
-
-// let isDisabled = ref('true');
+const newSetOfDishesDescription = ref('');
 const canSubmit = computed(() => newSetOfDishesName.value.length > 0 && newSetOfDishesQuantity.value > 0);
-function submitFunction(e) {
-    console.log(`Нажата кнопка ${e}`);
+
+function writSet() {
+    //console.log(`Нажата кнопка`);
+    const rawArray = toRaw(newSetDishes.value);
+    const setOnGet = [newSetOfDishesName.value, newSetOfDishesQuantity.value, newSetOfDishesDescription.value, rawArray];
+    console.log(setOnGet);
+    newSetOfDishesName.value = '';
+    newSetOfDishesDescription.value = '';
 }
 
 
@@ -55,6 +60,7 @@ function removeNewSetDishes(id) {
         <div class="flex mb-4 gap-2">
             <AtherInputs v-model="newSetOfDishesName" class="new-set-name" placeholder="Введите название нового стола"></AtherInputs>
             <AtherInputs type="number" v-model="newSetOfDishesQuantity" class="quantity-person" placeholder="Количество"></AtherInputs>
+            <AtherInputs type="text" v-model="newSetOfDishesDescription" class="new-set-name" placeholder="Описание"></AtherInputs>
         </div>
         <div class="text-gray-500 mb-5">
             <H2 v-if="changeIdGroup !== 0">Выбрана группа блюд: <strong>{{ changedGroup.name }}</strong></H2>
@@ -80,8 +86,8 @@ function removeNewSetDishes(id) {
             </div>
         </div>
         <div class="flex justify-end">
-            <TextButtonLittle :disabled="!canSubmit" class="mr-2" @click="submitFunction(e)">Записать стол</TextButtonLittle>
-            <TextButtonLittle :disabled="!canSubmit" class="mr-2" @click="submitFunction(e)">Сформировать список</TextButtonLittle>
+            <TextButtonLittle :disabled="!canSubmit" class="mr-2" @click="writSet">Записать стол</TextButtonLittle>
+            <TextButtonLittle :disabled="!canSubmit" class="mr-2" @click="submitFunction">Сформировать список</TextButtonLittle>
         </div>
     </div>
 
