@@ -52,24 +52,6 @@ export const useSets = defineStore('sets', () => {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // Функция сохранения данных в localStorage
     function saveToLocalStorage(data) {
         if (!data || typeof data !== 'object') return;

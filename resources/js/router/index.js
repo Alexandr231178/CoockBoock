@@ -5,6 +5,7 @@ import MasterPage from "../views/MasterPage.vue";
 import SetePages from "../views/SetePages.vue";
 import DishPages from "../views/DishPages.vue";
 import MainVue from "../views/MainVue.vue";
+import ResultList from "../components/outputs/ResultList.vue";
 
 
 
@@ -31,6 +32,11 @@ const routes = [
                 path: 'dishes',
                 component: DishPages, name: 'dishes'
             },
+
+            {
+                path: 'result',
+                component: ResultList, name: 'result'
+            }
         ]
     },
 

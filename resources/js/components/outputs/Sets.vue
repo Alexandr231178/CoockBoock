@@ -2,13 +2,19 @@
 
 import H2 from "../titles/H2.vue";
 import { useSets } from "../../stores/sets.js";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import TextButtonLittle from "../buttons/TextButtonLittle.vue";
 
 const useStore = useSets();
 useStore.getSets();
 const setsList = ref(useStore.sets);
 
+watch(
+    () => useStore.sets,
+    () => {
+        setsList.value = useStore.sets;
+    }
+)
 
 // Массив выбранных элементов
 const selectedItems = ref([])
