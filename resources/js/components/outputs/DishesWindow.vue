@@ -1,6 +1,7 @@
 <script setup>
 import { useDishes } from "../../stores/dishes.js";
 import { useDishesGroup } from "../../stores/dishesGroup.js";
+import { useSets } from "../../stores/sets.js";
 import {computed, ref, watch} from "vue";
 import {toRaw} from "vue";
 import TextButtonLittle from "../buttons/TextButtonLittle.vue";
@@ -12,6 +13,7 @@ import AtherInputs from "../Inputs/AtherInputs.vue";
 
 const useStore = useDishes();
 const useStoreDishesGroup = useDishesGroup();
+const useStoreSets = useSets();
 const dishesGroupList = useStoreDishesGroup.dishesGroup;
 let changedGroup = ref('Все объекты');
 useStore.getDishes();
@@ -25,24 +27,24 @@ watch(
     }
 )
 
-//*******************Проверка кода**************************************************************************************
 const newSetOfDishesName = ref('');
 const newSetOfDishesQuantity = ref(4);
 const newSetOfDishesDescription = ref('');
 const canSubmit = computed(() => newSetOfDishesName.value.length > 0 && newSetOfDishesQuantity.value > 0);
 
 function writSet() {
-    //console.log(`Нажата кнопка`);
     const rawArray = toRaw(newSetDishes.value);
-    const setOnGet = [newSetOfDishesName.value, newSetOfDishesQuantity.value, newSetOfDishesDescription.value, rawArray];
-    console.log(setOnGet);
+    //const setOnGet = [newSetOfDishesName.value, newSetOfDishesQuantity.value, newSetOfDishesDescription.value, rawArray];
+    const nameDescriptionObject = {
+        'name': newSetOfDishesName.value,
+        'description': newSetOfDishesDescription.value
+    }
+    useStoreSets.createNewSet(nameDescriptionObject, newSetOfDishesQuantity.value, rawArray);
+    //console.log(setOnGet);
     newSetOfDishesName.value = '';
     newSetOfDishesDescription.value = '';
 }
 
-
-
-//**********************************************************************************************************************
 function addNewSetDishes(id) {
     const alreadyExists = newSetDishes.value.some(p => p.id === id);
     let foundObject = dishesList.value.find(obj => obj.id === id);

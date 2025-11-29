@@ -25,7 +25,50 @@ export const useSets = defineStore('sets', () => {
         } catch (err) {
             console.error("Ошибка при загрузке данных:", err.message);
         }
-    };
+    }
+
+    //Функция заполнения таблицы sets_component
+    async function fillingSetComponentTable(idNewSet, newSetOfDishesQuantity, rawArray){
+        for (const dish of rawArray) {
+            const dataForFillingTable = {
+                'sets_of_dishes_id': idNewSet,
+                'dishes_id': dish.id,
+                'quantity': newSetOfDishesQuantity,
+            };
+            await axios.post('http://127.0.0.1:8000/api/sets-component', dataForFillingTable)
+        }
+    }
+
+
+    //Функция для создания нового стола
+    async function createNewSet(nameAndDescriptionObject, newSetOfDishesQuantity, rawArray) {
+        const resp = await axios.post('http://127.0.0.1:8000/api/sets', nameAndDescriptionObject);
+        const newSet = resp.data;
+        //console.log(newSet)
+        await fillingSetComponentTable(newSet.id, newSetOfDishesQuantity, rawArray);
+        await getSets();
+        //console.log(rawArray);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Функция сохранения данных в localStorage
     function saveToLocalStorage(data) {
@@ -58,5 +101,5 @@ export const useSets = defineStore('sets', () => {
 
 
 
-    return { sets, getSets };
+    return { sets, getSets, createNewSet };
 })
