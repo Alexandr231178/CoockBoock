@@ -26,7 +26,7 @@ function setAllGroup() {
 </script>
 
 <template>
-    <div class="flex flex-col justify-between p-4 border rounded-2xl bg-white">
+    <div class="flex flex-col p-4 border rounded-2xl bg-white">
         <H2 class="mb-4">Группы блюд</H2>
         <TextButtonAlfa class="mb-2" @click="setAllGroup()">Все блюда</TextButtonAlfa>
         <div v-for="i in dishesGroupList" :key="i.id">

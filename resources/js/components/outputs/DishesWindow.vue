@@ -2,19 +2,22 @@
 import { useDishes } from "../../stores/dishes.js";
 import { useDishesGroup } from "../../stores/dishesGroup.js";
 import { useSets } from "../../stores/sets.js";
+import { useResultList } from "../../stores/resultList.js";
 import {computed, ref, watch} from "vue";
 import {toRaw} from "vue";
+import { useRouter } from "vue-router";
 import TextButtonLittle from "../buttons/TextButtonLittle.vue";
 import TextButtonAlfa from "../buttons/TextButtonAlfa.vue";
 import Arrow from "../icons/Arrow.vue";
 import Cross from "../icons/Cross.vue";
 import AtherInputs from "../Inputs/AtherInputs.vue";
 
-
 const useStore = useDishes();
 const useStoreDishesGroup = useDishesGroup();
 const useStoreSets = useSets();
+const useStoreResult = useResultList()
 const dishesGroupList = useStoreDishesGroup.dishesGroup;
+const router = useRouter()
 let changedGroup = ref('Все объекты');
 useStore.getDishes();
 const dishesList = ref(useStore.dishes);
@@ -31,18 +34,22 @@ const newSetOfDishesName = ref('');
 const newSetOfDishesQuantity = ref(4);
 const newSetOfDishesDescription = ref('');
 const canSubmit = computed(() => newSetOfDishesName.value.length > 0 && newSetOfDishesQuantity.value > 0);
+const rawArray = toRaw(newSetDishes.value);
 
 function writSet() {
-    const rawArray = toRaw(newSetDishes.value);
-    //const setOnGet = [newSetOfDishesName.value, newSetOfDishesQuantity.value, newSetOfDishesDescription.value, rawArray];
     const nameDescriptionObject = {
         'name': newSetOfDishesName.value,
         'description': newSetOfDishesDescription.value
     }
     useStoreSets.createNewSet(nameDescriptionObject, newSetOfDishesQuantity.value, rawArray);
-    //console.log(setOnGet);
     newSetOfDishesName.value = '';
     newSetOfDishesDescription.value = '';
+}
+
+function generateList() {
+    useStoreResult.resultListGenerate(newSetOfDishesName.value, newSetOfDishesQuantity.value,
+        newSetOfDishesDescription.value, rawArray);
+    router.push({name: 'result'});
 }
 
 function addNewSetDishes(id) {
@@ -89,7 +96,7 @@ function removeNewSetDishes(id) {
         </div>
         <div class="flex justify-end">
             <TextButtonLittle :disabled="!canSubmit" class="mr-2" @click="writSet">Записать стол</TextButtonLittle>
-            <TextButtonLittle :disabled="!canSubmit" class="mr-2" @click="submitFunction">Сформировать список</TextButtonLittle>
+            <TextButtonLittle :disabled="!canSubmit" class="mr-2" @click="generateList">Сформировать список</TextButtonLittle>
         </div>
     </div>
 
