@@ -3,6 +3,8 @@ import { useDishes } from "../../stores/dishes.js";
 import { useDishesGroup } from "../../stores/dishesGroup.js";
 import { useSets } from "../../stores/sets.js";
 import { useResultList } from "../../stores/resultList.js";
+import { useProducts} from "../../stores/products.js";
+import { useDishComponents} from "../../stores/dishComponents.js";
 import {computed, ref, watch} from "vue";
 import {toRaw} from "vue";
 import { useRouter } from "vue-router";
@@ -12,6 +14,9 @@ import Arrow from "../icons/Arrow.vue";
 import Cross from "../icons/Cross.vue";
 import AtherInputs from "../Inputs/AtherInputs.vue";
 
+
+const useStoreProducts = useProducts();
+const useStoreDishComponents = useDishComponents();
 const useStore = useDishes();
 const useStoreDishesGroup = useDishesGroup();
 const useStoreSets = useSets();
@@ -20,6 +25,8 @@ const dishesGroupList = useStoreDishesGroup.dishesGroup;
 const router = useRouter()
 let changedGroup = ref('Все объекты');
 useStore.getDishes();
+useStoreDishComponents.getAllDishComponents();
+useStoreProducts.getAllProducts();
 const dishesList = ref(useStore.dishes);
 let newSetDishes = ref([]);
 let changeIdGroup = ref(useStoreDishesGroup.changedGroup);
@@ -48,7 +55,7 @@ function writSet() {
 
 function generateList() {
     useStoreResult.resultListGenerate(newSetOfDishesName.value, newSetOfDishesQuantity.value,
-        newSetOfDishesDescription.value, rawArray);
+        newSetOfDishesDescription.value, rawArray, useStoreProducts.products, useStoreDishComponents.dishComponents);
     router.push({name: 'result'});
 }
 
