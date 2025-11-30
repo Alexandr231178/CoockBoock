@@ -3,10 +3,28 @@ import { defineStore } from "pinia";
 import { ref } from 'vue';
 
 export const useResultList = defineStore('result', ()=> {
-    const resultList = ref();
-    function resultListGenerate(setName, setQuantiti, setDescription, rawArray) {
-        resultList.value = [setName, setQuantiti, setDescription, rawArray];
-        //console.log(setName, setQuantiti, setDescription, rawArray)
+    let resultList = [];
+    let dishesList = [];
+
+    function resultListGenerate(setName, setQuantiti, setDescription, rawArray, products, dishComponents) {
+        resultList.push(setName);
+        resultList.push(setQuantiti);
+        resultList.push(setDescription);
+
+        rawArray.forEach((element)=> {
+            dishesList.push(element.name);
+        })
+        resultList.push(dishesList);
+
+
+
+
+        //console.log(setName, setQuantiti, setDescription, rawArray, products , dishComponents);
+        //console.log(resultList);
+        //Не забыть обнулить resultList после выполнения логики этой функции
+
+
+
     }
 
     return { resultList, resultListGenerate }
