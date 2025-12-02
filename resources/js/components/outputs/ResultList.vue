@@ -5,6 +5,7 @@
 
     const useStore = useResultList();
     const data = useStore.resultList
+
 </script>
 
 <template>
@@ -14,6 +15,10 @@
     <div v-for="name in data[3]" class="text-left">
         <H2 class="mb-1.5">{{ name }}</H2>
     </div>
+    <H2>Продукты - масса в граммах</H2>
+<!--    <div v-for="product in products">-->
+<!--        <H2 class="mb-1.5">{{ product.name }} - {{ product.quantity}}</H2>-->
+<!--    </div>-->
 </template>
 
 <style scoped>
