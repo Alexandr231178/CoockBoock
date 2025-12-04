@@ -15,10 +15,10 @@
     <div v-for="name in data[3]" class="text-left">
         <H2 class="mb-1.5">{{ name }}</H2>
     </div>
-    <H2>Продукты - масса в граммах</H2>
-<!--    <div v-for="product in products">-->
-<!--        <H2 class="mb-1.5">{{ product.name }} - {{ product.quantity}}</H2>-->
-<!--    </div>-->
+    <H1>Продукты - масса в граммах</H1>
+    <div v-for="product in data[4]">
+        <H2 class="mb-1.5">{{ product.productName }} - {{ product.resultQuantity}}</H2>
+    </div>
 </template>
 
 <style scoped>
