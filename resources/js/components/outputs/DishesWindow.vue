@@ -22,7 +22,7 @@ const useStoreDishesGroup = useDishesGroup();
 const useStoreSets = useSets();
 const useStoreResult = useResultList()
 const dishesGroupList = useStoreDishesGroup.dishesGroup;
-const router = useRouter()
+const router = useRouter();
 let changedGroup = ref('Все объекты');
 useStore.getDishes();
 useStoreDishComponents.getAllDishComponents();

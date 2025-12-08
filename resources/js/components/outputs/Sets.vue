@@ -2,12 +2,30 @@
 
 import H2 from "../titles/H2.vue";
 import { useSets } from "../../stores/sets.js";
-import {ref, watch} from "vue";
+import { useDishes } from "../../stores/dishes.js";
+import { useResultList } from "../../stores/resultList.js";
+import { useSetsComponent } from "../../stores/setsComponent.js";
+import { useProducts } from "../../stores/products.js";
+import { useDishComponents } from "../../stores/dishComponents.js";
+import {ref, toRaw, watch} from "vue";
+import { useRouter } from "vue-router";
 import TextButtonLittle from "../buttons/TextButtonLittle.vue";
 
 const useStore = useSets();
-useStore.getSets();
+const useStoreDishes = useDishes();
+const useStoreSetsltList = useResultList();
+const useStoreSetsComponent = useSetsComponent();
+const useStoreProducts = useProducts();
+const useStoreDishComponents = useDishComponents();
 const setsList = ref(useStore.sets);
+const router = useRouter()
+
+
+useStore.getSets();
+useStoreSetsComponent.getSetsComponent();
+useStoreDishComponents.getAllDishComponents();
+useStoreDishes.getDishes();
+useStoreProducts.getAllProducts();
 
 watch(
     () => useStore.sets,
@@ -30,8 +48,23 @@ const handleCheckboxChange = () => {
 
 // Функция обработки клика по кнопке
 const onSubmit = () => {
-    console.log('Выбранные элементы:', selectedItems.value)
-}
+    let selectedSets = [];
+    selectedItems.value.forEach((elem) => {
+        const found = setsList.value.find(item => item.id === elem);
+        if (found) {
+            selectedSets.push(found);
+        }
+    })
+
+    useStoreSetsltList.resultList2Generate(
+        selectedSets,
+        useStoreSetsComponent.setsComponent,
+        useStoreDishes.dishes,
+        useStoreDishComponents.dishComponents,
+        useStoreProducts.products
+    )
+    router.push({name: 'result2'})
+  }
 
 </script>
 
@@ -48,10 +81,10 @@ const onSubmit = () => {
     </div>
 </template>
 
+
 <style scoped>
 button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
-
 </style>
