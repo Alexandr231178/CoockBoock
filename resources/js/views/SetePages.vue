@@ -1,10 +1,11 @@
 <script setup>
 
 import H1 from "../components/titles/H1.vue";
+import SetsScreen from "../components/entityScreens/SetsScreen.vue";
 </script>
 
 <template>
-    <H1>Здесь будет страница столов</H1>
+    <SetsScreen></SetsScreen>
 </template>
 
 <style scoped>
