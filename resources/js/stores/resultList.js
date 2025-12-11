@@ -46,7 +46,7 @@ export const useResultList = defineStore('result', ()=> {
         //return dataFromDishcomponent;
     }
 
-//Основная функция генерирующая результат**************************************************************************
+    //Основная функция генерирующая результат**************************************************************************
     function resultListGenerate(setName, setQuantiti, setDescription, rawArray, products, dishComponents) {
 
         resultList.push(setName);
@@ -70,16 +70,62 @@ export const useResultList = defineStore('result', ()=> {
         resultList = [];
 
     }
+//Блок функций для ResultList2******************************************************************************************
 
-    //Блок функций для ResultList2******************************************************************************************
+    //Функция которая убирает дубли из компонентов столов и складывает количество персон блюд
+    function removeRepetitionSetComponentList(data) {
+        const result = data.reduce((acc, item) => {
+            const existing = acc.find(i => i.dishes_id === item.dishes_id);
+
+            if (existing) {
+                existing.quantity += item.quantity;
+            } else {
+                acc.push({dishes_id: item.dishes_id, quantity: item.quantity});
+            }
+            return acc;
+        }, []);
+        return result;
+    }
+
+    //Функция, оставляющая в компоненты только выбранных столов
+    function componentsOfSelectedSets(selectedSets, setsComponent) {
+        let filtredSetComponent = [];
+        selectedSets.forEach((element) => {
+            const setComponentFiltred = toRaw(setsComponent).filter(item => item.sets_of_dishes_id === element.id);
+            filtredSetComponent.push(setComponentFiltred);
+        })
+        filtredSetComponent = filtredSetComponent.flat();
+        return removeRepetitionSetComponentList(filtredSetComponent);
+        //return filtredSetComponent;
+
+    }
+
+    //Функция которая берет результат componentsOfSelectedSets, добавляет название блюда и считает коэффициент для продуктов
+    function createDishesListFinal(componentsOfSelectedSetsResult, dishes) {
+        componentsOfSelectedSetsResult.forEach((element) => {
+            element['DishName'] = toRaw(dishes).filter(item => item.id === element.dishes_id)[0].name;
+            element['kf'] = element.quantity / toRaw(dishes).filter(item => item.id === element.dishes_id)[0].quantity;
+        })
+        //return componentsOfSelectedSetsResult;
+    }
+
+
+    //Функция которая берет результат createDishesListFinal и создает список продуктов
+    function createProductList(selectedSetsComponents, dishComponents, products) {
+        return
+    }
 
     function resultList2Generate(
-        selectedSets,
-        setsComponent,
-        dishes,
-        dishComponents,
-        products) {
-        resultList2.value =  [selectedSets, setsComponent, dishes, dishComponents, products];
+        selectedSets, //Выбранные столы
+        setsComponent, //Компоненты столов
+        dishes, //Блюда
+        dishComponents, //Компоненты блюд
+        products //Продукты
+    ) {
+        const selectedSetsComponents = componentsOfSelectedSets(selectedSets, setsComponent);
+        createDishesListFinal(selectedSetsComponents, dishes);
+
+        resultList2.value =  [selectedSets, selectedSetsComponents];
         console.log(resultList2.value);
     }
 
