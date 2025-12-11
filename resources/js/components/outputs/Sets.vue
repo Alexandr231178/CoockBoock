@@ -57,11 +57,11 @@ const onSubmit = () => {
     })
 
     useStoreSetsltList.resultList2Generate(
-        selectedSets,
-        useStoreSetsComponent.setsComponent,
-        useStoreDishes.dishes,
-        useStoreDishComponents.dishComponents,
-        useStoreProducts.products
+        selectedSets, //Выбранные столы
+        useStoreSetsComponent.setsComponent, //Компоненты столов
+        useStoreDishes.dishes, //Блюда
+        useStoreDishComponents.dishComponents, //Компоненты блюд
+        useStoreProducts.products //Продукты
     )
     router.push({name: 'result2'})
   }

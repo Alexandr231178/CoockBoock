@@ -17,9 +17,9 @@
     </div>
 
     <H1>Наименования блюд:</H1>
-<!--    <div v-for="name in data[3]" class="text-left">-->
-<!--        <H2 class="mb-1.5">{{ name }}</H2>-->
-<!--    </div>-->
+    <div v-for="name in data[1]" class="text-left">
+        <H2 class="mb-1.5">{{ name.DishName }}</H2>
+    </div>
 
 <!--    <H1>Продукты - масса в граммах</H1>-->
 <!--    <div v-for="product in data[4]">-->
