@@ -21,10 +21,10 @@
         <H2 class="mb-1.5">{{ name.DishName }}</H2>
     </div>
 
-<!--    <H1>Продукты - масса в граммах</H1>-->
-<!--    <div v-for="product in data[4]">-->
-<!--        <H2 class="mb-1.5">{{ product.productName }} - {{ product.resultQuantity}}</H2>-->
-<!--    </div>-->
+    <H1>Продукты - масса в граммах</H1>
+    <div v-for="product in data[2]">
+        <H2 class="mb-1.5">{{ product.productName }} - {{ product.resultCount}}</H2>
+    </div>
 </template>
 
 <style scoped>
