@@ -96,7 +96,6 @@ export const useResultList = defineStore('result', ()=> {
         })
         filtredSetComponent = filtredSetComponent.flat();
         return removeRepetitionSetComponentList(filtredSetComponent);
-        //return filtredSetComponent;
 
     }
 
@@ -106,14 +105,44 @@ export const useResultList = defineStore('result', ()=> {
             element['DishName'] = toRaw(dishes).filter(item => item.id === element.dishes_id)[0].name;
             element['kf'] = element.quantity / toRaw(dishes).filter(item => item.id === element.dishes_id)[0].quantity;
         })
-        //return componentsOfSelectedSetsResult;
     }
 
 
-    //Функция которая берет результат createDishesListFinal и создает список продуктов
-    function createProductList(selectedSetsComponents, dishComponents, products) {
-        return
+    //Функция которая берет результат createDishesListFinal и dishComponents выбранных блюд (из выбранных столов) и применяет считает потребность продукта
+    function createProductList(selectedSetsComponents, dishComponents) {
+        let dishComponentChanges = [];
+        selectedSetsComponents.forEach((element) => {
+            const res = toRaw(dishComponents).filter(item => item.dish_id === element.dishes_id);
+            res.forEach((el) => {
+                el['resultCount'] = element.kf * el.quantity;
+            })
+            dishComponentChanges.push(res);
+        });
+        return dishComponentChanges.flat()
     }
+
+    //Функция которая берет результат createProductList (dishComponents выбранных блюд), убирает дубли, складывает количество и прилепляет название продукта
+    function resultProductList(dishComponentChanges, products) {
+        const result = dishComponentChanges.reduce((acc, item) => {
+            const existing = acc.find(i => i.products_id === item.products_id);
+            if (existing) {
+                existing.resultCount += item.resultCount;
+            } else {
+                acc.push({products_id: item.products_id, resultCount: item.resultCount});
+            }
+            return acc;
+        }, []);
+        result.forEach((element) => {
+            products.forEach((el) => {
+                if(element.products_id === el.id) {
+                    element['productName'] = el.name;
+                }
+            })
+        })
+
+        return result;
+    }
+
 
     function resultList2Generate(
         selectedSets, //Выбранные столы
@@ -125,7 +154,10 @@ export const useResultList = defineStore('result', ()=> {
         const selectedSetsComponents = componentsOfSelectedSets(selectedSets, setsComponent);
         createDishesListFinal(selectedSetsComponents, dishes);
 
-        resultList2.value =  [selectedSets, selectedSetsComponents];
+        const mediateResulr = createProductList(selectedSetsComponents, dishComponents);
+        const productList = resultProductList(mediateResulr, products)
+
+        resultList2.value =  [selectedSets, selectedSetsComponents, productList];
         console.log(resultList2.value);
     }
 
