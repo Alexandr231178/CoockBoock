@@ -47,8 +47,13 @@ export const useSets = defineStore('sets', () => {
         //console.log(newSet)
         await fillingSetComponentTable(newSet.id, newSetOfDishesQuantity, rawArray);
         await getSets();
-        //console.log(rawArray);
 
+    }
+
+    //Функция для удаления стола
+    async function deleteSet(id) {
+        await axios.delete(`http://127.0.0.1:8000/api/sets/${id}`);
+        await getSets();
     }
 
 
@@ -83,5 +88,5 @@ export const useSets = defineStore('sets', () => {
 
 
 
-    return { sets, getSets, createNewSet };
+    return { sets, getSets, createNewSet, deleteSet };
 })

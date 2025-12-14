@@ -15,4 +15,10 @@ class SetsOfDishesController extends Controller
     public function store(SetsRequest $request) {
         return SetsOfDishes::create($request->all());
     }
+
+    public function destroy($id) {
+//        $setsComponents = SetsOfDishes::find($id)->sets_components;
+//        dd($setsComponents);
+        return SetsOfDishes::destroy($id);
+    }
 }

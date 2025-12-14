@@ -26,6 +26,12 @@ export const useSetsComponent = defineStore('setsComponent', () => {
         }
     }
 
+    //Функция для удаления стола
+    async function deleteSetComponent(id) {
+        await axios.delete(`http://127.0.0.1:8000/api/sets-component/${id}`);
+        await getSetsComponent();
+    }
+
     // Функция сохранения данных в localStorage
     function saveToLocalStorage(data) {
         if (!data || typeof data !== 'object') return;
@@ -57,6 +63,6 @@ export const useSetsComponent = defineStore('setsComponent', () => {
 
 
 
-    return { setsComponent, getSetsComponent };
+    return { setsComponent, getSetsComponent, deleteSetComponent };
 })
 
