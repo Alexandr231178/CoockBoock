@@ -12,4 +12,8 @@ class DishesController extends Controller
     {
         return Dishes::all();
     }
+
+    public function destroy(int $id) {
+
+    }
 }

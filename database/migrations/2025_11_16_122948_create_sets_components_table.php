@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('sets_components', function (Blueprint $table) {
             $table->id();
-            $table->integer('sets_of_dishes_id');
-            $table->integer('dishes_id');
+            $table->foreignId('sets_of_dishes_id')->constrained('sets_of_dishes')->onDelete('cascade');
+            $table->foreignId('dishes_id')->constrained('dishes')->onDelete('cascade');
             $table->integer('quantity');
             $table->timestamps();
         });
