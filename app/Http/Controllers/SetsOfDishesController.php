@@ -16,9 +16,16 @@ class SetsOfDishesController extends Controller
         return SetsOfDishes::create($request->all());
     }
 
+    public function update(SetsRequest $request) {
+        $updateSet = SetsOfDishes::find($request->id);
+        $updateSet->name = $request['name'];
+        $updateSet->description = $request['description'];
+        $updateSet->save();
+
+    }
+
+
     public function destroy($id) {
-//        $setsComponents = SetsOfDishes::find($id)->sets_components;
-//        dd($setsComponents);
         return SetsOfDishes::destroy($id);
     }
 }

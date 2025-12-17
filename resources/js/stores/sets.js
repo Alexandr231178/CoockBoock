@@ -82,6 +82,13 @@ export const useSets = defineStore('sets', () => {
         }
     }
 
+    //Функция изменения выбранного стола
+    // async function updateSet() {
+    //     await
+    // }
+
+
+
     // Выполняем восстановление данных сразу при создании стор-хука
     restoreFromLocalStorage();
 
