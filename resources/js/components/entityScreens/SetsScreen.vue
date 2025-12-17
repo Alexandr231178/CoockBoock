@@ -17,11 +17,13 @@ const setsList = ref(useStoreSets.sets);
 const useStoreSetsComponent = useSetsComponent();
 useStoreSetsComponent.getSetsComponent();
 const setsComponentList = ref(useStoreSetsComponent.setsComponent);
+const numberPersonsSelectedSet = ref();
 
 const useStoreDishes = useDishes();
 useStoreDishes.getDishes();
 const dishes = ref(useStoreDishes.dishes);
 
+const updateSetId = ref();
 const updateSetName = ref();
 const updateDescription = ref();
 let updateDishesList = ref([]);
@@ -48,8 +50,20 @@ watch(
 )
 
 //Функция изменяющая стол
-function updateSet() {
-    pass
+function updateSelectedSet(id) {
+    const dataForUpdateSet = {id: id, name: updateSetName.value, description: updateDescription.value};
+    const dataForUpdateSetComponent = [];
+    updateDishesList.value.forEach((element)=> {
+        let data = {};
+        data['id'] = element.id;
+        data['sets_of_dishes_id'] = id;
+        data['dishes_id'] = element.dishes_id;
+        data['quantity'] = numberPersonsSelectedSet.value;
+        dataForUpdateSetComponent.push(data);
+    })
+
+    console.log(dataForUpdateSet);
+    console.log(dataForUpdateSetComponent);
 }
 
 //Функция которая отбирает из списка компонентов только компоненты выбранного стола и складывает их в массив
@@ -61,13 +75,15 @@ function createChangeComponentList(setsComponentList, id) {
         res['id'] = element.id;
         res['sets_of_dishes_id'] = element.sets_of_dishes_id;
         res['dishes_id'] = element.dishes_id;
+        res['quantityPerson'] = element.quantity;
         result.push(res);
     })
+    numberPersonsSelectedSet.value = result[0].quantityPerson;
     return result
 }
 
 function changeFunction(id) {
-    //console.log(setsComponentList.value);
+    updateSetId.value = id;
     updateDishesList.value = createChangeComponentList(setsComponentList, id);
     updateDishesList.value.forEach((element) => {
         dishes.value.forEach((el)=> {
@@ -139,7 +155,7 @@ function addDishFunction(id) {
                         <TextButtonAlfa>{{ dish.dishesName }}</TextButtonAlfa>
                         <button @click="deleteDishFunction(dish.id)"><Delete></Delete></button>
                     </div>
-                    <TextButtonAlfa>Изменить</TextButtonAlfa>
+                    <TextButtonAlfa @click="updateSelectedSet(updateSetId)">Изменить</TextButtonAlfa>
                 </div>
             </div>
             <div class="mr-4 pr-4">

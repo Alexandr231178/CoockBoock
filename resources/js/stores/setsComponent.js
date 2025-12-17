@@ -63,6 +63,7 @@ export const useSetsComponent = defineStore('setsComponent', () => {
 
 
 
-    return { setsComponent, getSetsComponent, deleteSetComponent };
+
+    return { setsComponent, getSetsComponent, deleteSetComponent};
 })
 
