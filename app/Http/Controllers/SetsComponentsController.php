@@ -16,6 +16,13 @@ class SetsComponentsController extends Controller
         return SetsComponents::create($request->all());
     }
 
+    public function update(SetsComponentsRequest $request) {
+        $updateSet = SetsComponents::find($request->id);
+        $updateSet->name = $request['name'];
+        $updateSet->description = $request['description'];
+        $updateSet->save();
+    }
+
     public function destroy($id) {
         return SetsComponents::destroy($id);
     }
