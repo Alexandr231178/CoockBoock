@@ -74,11 +74,11 @@ export const useSetsComponent = defineStore('setsComponent', () => {
 
     //Функция для отправки данных на изменение компонентов стола
     async function updateSetsComponent(data) {
-        console.log('Данные, попавшие в функцию изменения компонентов стола: ');
-        console.log(data);
+        // console.log('Данные, попавшие в функцию изменения компонентов стола: ');
+        // console.log(data);
         const preparatedData = preparateDataForUpdateSetComponents(data);
-        console.log('Данные, подготовленные к изменениям компонентов стола: ');
-        console.log(preparatedData);
+        // console.log('Данные, подготовленные к изменениям компонентов стола: ');
+        // console.log(preparatedData);
         for (const element of preparatedData[0]) {
             await axios.post('http://127.0.0.1:8000/api/sets-component', element);
         }
