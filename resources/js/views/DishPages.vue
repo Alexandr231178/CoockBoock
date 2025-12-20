@@ -1,10 +1,15 @@
 <script setup>
 
-import H1 from "../components/titles/H1.vue";
+import DishesGroup from "../components/outputs/DishesGroup.vue";
+import DishesWindowOnly from "../components/outputs/DishesWindowOnly.vue";
 </script>
 
 <template>
-    <H1>Здесь будет страница блюд</H1>
+    <div class="flex">
+        <DishesGroup></DishesGroup>
+        <DishesWindowOnly></DishesWindowOnly>
+    </div>
+
 </template>
 
 <style scoped>
