@@ -21,7 +21,6 @@ class SetsOfDishesController extends Controller
         $updateSet->name = $request['name'];
         $updateSet->description = $request['description'];
         $updateSet->save();
-
     }
 
 

@@ -61,9 +61,11 @@ function updateSelectedSet(id) {
         data['quantity'] = numberPersonsSelectedSet.value;
         dataForUpdateSetComponent.push(data);
     })
+    useStoreSets.updateSet(id, dataForUpdateSet);
+    useStoreSetsComponent.updateSetsComponent(dataForUpdateSetComponent);
 
-    console.log(dataForUpdateSet);
-    console.log(dataForUpdateSetComponent);
+    // console.log(dataForUpdateSet);
+    // console.log(dataForUpdateSetComponent);
 }
 
 //Функция которая отбирает из списка компонентов только компоненты выбранного стола и складывает их в массив
@@ -96,7 +98,7 @@ function changeFunction(id) {
     updateSetName.value = changeSet[0].name;
     updateDescription.value = changeSet[0].description;
 
-    console.log(updateDishesList.value);
+    //console.log(updateDishesList.value);
 }
 
 function deleteFunction(id) {
@@ -111,7 +113,7 @@ function deleteFunction(id) {
 }
 
 function deleteDishFunction(id) {
-    console.log('Вызвана функция удаления', id)
+    //console.log('Вызвана функция удаления', id)
     //updateDishesList.value = updateDishesList.value.pop(id)
     updateDishesList.value = updateDishesList.value.filter(item => item.id !== id);
 }
@@ -126,7 +128,7 @@ function addDishFunction(id) {
             dishesName: foundObject.name}
         updateDishesList.value.push(resultFoundObject);
     }
-    console.log(updateDishesList.value);
+    //console.log(updateDishesList.value);
 }
 
 

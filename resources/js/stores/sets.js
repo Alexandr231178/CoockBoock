@@ -83,9 +83,10 @@ export const useSets = defineStore('sets', () => {
     }
 
     //Функция изменения выбранного стола
-    // async function updateSet() {
-    //     await
-    // }
+    async function updateSet(id, data) {
+        await axios.post(`http://127.0.0.1:8000/api/sets/${id}`, data);
+        await getSets();
+    }
 
 
 
@@ -95,5 +96,5 @@ export const useSets = defineStore('sets', () => {
 
 
 
-    return { sets, getSets, createNewSet, deleteSet };
+    return { sets, getSets, createNewSet, deleteSet, updateSet };
 })
