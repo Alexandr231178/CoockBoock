@@ -1,3 +1,4 @@
+
 <script setup>
 import { useDishes } from "../../stores/dishes.js";
 import { useDishesGroup } from "../../stores/dishesGroup.js";
@@ -6,7 +7,6 @@ import { useResultList } from "../../stores/resultList.js";
 import { useProducts} from "../../stores/products.js";
 import { useDishComponents} from "../../stores/dishComponents.js";
 import {computed, ref, watch} from "vue";
-import {toRaw} from "vue";
 import { useRouter } from "vue-router";
 import TextButtonAlfa from "../buttons/TextButtonAlfa.vue";
 import Cange from "../icons/Cange.vue";
@@ -14,8 +14,6 @@ import Delete from "../icons/Delete.vue";
 import TextButton from "../buttons/TextButton.vue";
 import CreateNewDishScreen from "./CreateNewDishScreen.vue";
 import UpdateDishesScreen from "./UpdateDishesScreen.vue";
-
-
 
 const useStoreProducts = useProducts();
 const useStoreDishComponents = useDishComponents();
@@ -32,26 +30,30 @@ useStoreProducts.getAllProducts();
 const dishesList = ref(useStore.dishes);
 let newSetDishes = ref([]);
 let changeIdGroup = ref(useStoreDishesGroup.changedGroup);
+
 watch(
     ()=> useStoreDishesGroup.changedGroup,
-    ()=> {changeIdGroup.value = useStoreDishesGroup.changedGroup;
+    ()=> {
+        changeIdGroup.value = useStoreDishesGroup.changedGroup;
         changedGroup.value = dishesGroupList.find(obj => obj.id === changeIdGroup.value);
     }
 )
 
-const newSetOfDishesName = ref('');
-const newSetOfDishesQuantity = ref(4);
-const newSetOfDishesDescription = ref('');
-const canSubmit = computed(() => newSetOfDishesName.value.length > 0 && newSetOfDishesQuantity.value > 0);
-const rawArray = toRaw(newSetDishes.value);
-
 const createOrUpdateScreen = ref('create');
 const selectedId = ref(null);
+const selectedDishName = ref(null);
+const selectedDishDescription = ref(null); // Переименовал для ясности
+const selectedDishQuantityPerson = ref(null);
+const howToCook = ref(null);
 
-
-
-function changeFunction(id) {
+function changeFunction(id, name, description, howToCookValue, quantity) {
+    // Присваиваем значения ref-переменным, а не строковым параметрам
     selectedId.value = id;
+    selectedDishName.value = name;
+    selectedDishDescription.value = description; // Используем ref переменную
+    howToCook.value = howToCookValue;
+    selectedDishQuantityPerson.value = quantity;
+
     createOrUpdateScreen.value = 'update';
 }
 
@@ -62,8 +64,6 @@ function deleteFunction(id) {
 function createNewDish() {
     createOrUpdateScreen.value = 'create';
 }
-
-
 </script>
 
 <template>
@@ -77,7 +77,9 @@ function createNewDish() {
                 <div class="mr-1.5" v-for="i in dishesList" :key="i.id">
                     <div class="flex mb-2" v-if="i.dish_group_id === changeIdGroup || changeIdGroup === 0">
                         <TextButtonAlfa>{{ i.name }}</TextButtonAlfa>
-                        <button @click="changeFunction(i.id)"><Cange></Cange></button>
+                        <button @click="changeFunction(i.id, i.name, i.description, i.how_to_cook, i.quantity)">
+                            <Cange></Cange>
+                        </button>
                         <button @click="deleteFunction(i.id)"><Delete></Delete></button>
                     </div>
                 </div>
@@ -87,16 +89,18 @@ function createNewDish() {
                 <CreateNewDishScreen></CreateNewDishScreen>
             </div>
             <div v-if="createOrUpdateScreen === 'update'">
-                <UpdateDishesScreen :selected-id="selectedId"></UpdateDishesScreen>
+                <UpdateDishesScreen
+                    :selected-id="selectedId"
+                    :selected-dish-name="selectedDishName"
+                    :selected-dish-description="selectedDishDescription"
+                    :selected-dish-quantity-person="selectedDishQuantityPerson"
+                    :how-to-cook="howToCook">
+                </UpdateDishesScreen>
             </div>
         </div>
     </div>
-
-
 </template>
 
 <style scoped>
-
-
+/* стили */
 </style>
-
