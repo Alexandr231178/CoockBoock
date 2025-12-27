@@ -14,6 +14,7 @@ import Delete from "../icons/Delete.vue";
 import TextButton from "../buttons/TextButton.vue";
 import CreateNewDishScreen from "./CreateNewDishScreen.vue";
 import UpdateDishesScreen from "./UpdateDishesScreen.vue";
+import AddProductScreen from "../entityScreens/AddProductScreen.vue";
 
 const useStoreProducts = useProducts();
 const useStoreDishComponents = useDishComponents();
@@ -85,10 +86,10 @@ function createNewDish() {
                 </div>
                 <TextButton @click="createNewDish">Создать новое блюдо</TextButton>
             </div>
-            <div v-if="createOrUpdateScreen === 'create'">
+            <div class="border-e-4" v-if="createOrUpdateScreen === 'create'">
                 <CreateNewDishScreen></CreateNewDishScreen>
             </div>
-            <div v-if="createOrUpdateScreen === 'update'">
+            <div class="border-e-4" v-if="createOrUpdateScreen === 'update'">
                 <UpdateDishesScreen
                     :selected-id="selectedId"
                     :selected-dish-name="selectedDishName"
@@ -96,6 +97,9 @@ function createNewDish() {
                     :selected-dish-quantity-person="selectedDishQuantityPerson"
                     :how-to-cook="howToCook">
                 </UpdateDishesScreen>
+            </div>
+            <div>
+                <AddProductScreen></AddProductScreen>
             </div>
         </div>
     </div>
