@@ -98,15 +98,32 @@ function updateDishComponent() {
 
 }
 
+
+//******************************************************************************************************************************************
+//Функция которая отправляет запрос на удаление продукта из таблицы компонентов  ГОТОВА
+function deleteDishesComponent() {
+    const result = changedDishComponents.filter(item => !changeProducts.value.some(obj => Number(obj.id)  === Number(item.products_id)));
+    //console.log(result);
+    result.forEach((dishComponent) => {
+        //console.log(dishComponent.id);
+        useStoreDishComponents.deleteDishComponent(dishComponent.id);
+    });
+    useStoreDishComponents.getAllDishComponents();
+ }
+
+
+
 //Функция которая применяет все функции изменений по нажатии кнопки "Редактировать рецепт"
 function updateDishAll() {
+    console.log(`Начальный массив компонентов:`, changedDishComponents);
+    console.log(`Массив для отправки запроса:`, changeProducts.value);
 
 }
 
 watch(
     () => useStoreProducts.changeDishProducts,
     () => {changeProducts.value = useStoreProducts.changeDishProducts;
-        console.log(changeProducts.value);
+        //console.log(changeProducts.value);
     }
 )
 
@@ -144,7 +161,7 @@ function deleteProductFromDish(id) {
     </div>
 
     <div>
-        <TextButton @click="updateDishAll">Редактировать рецепт</TextButton>
+        <TextButton @click="deleteDishesComponent">Редактировать рецепт</TextButton>
     </div>
 
 </template>

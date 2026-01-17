@@ -10,4 +10,10 @@ class DishesComponentController extends Controller
     public function index() {
         return DishesComponent::all();
     }
+
+    public function destroy($id) {
+
+        return DishesComponent::destroy($id);
+    }
 }
+
